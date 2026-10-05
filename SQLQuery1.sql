@@ -46,3 +46,12 @@ MusicId INT REFERENCES Musics(Id),
 UserId INT REFERENCES Users(Id),
 PRIMARY KEY(MusicId, UserId)
 )
+
+
+
+SELECT *
+FROM Users AS u
+JOIN Playlists AS p
+ON u.Id = p.UserId
+JOIN Musics AS m
+ON m.Id = p.MusicId
