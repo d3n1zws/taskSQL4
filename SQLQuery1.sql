@@ -41,3 +41,8 @@ Id INT PRIMARY KEY IDENTITY
 
 
 
+CREATE TABLE Playlists(
+MusicId INT REFERENCES Musics(Id),
+UserId INT REFERENCES Users(Id),
+PRIMARY KEY(MusicId, UserId)
+)
