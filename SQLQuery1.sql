@@ -15,6 +15,7 @@ Id INT PRIMARY KEY IDENTITY
 )
 
 
+
 CREATE TABLE Artists(
 [Name] VARCHAR(25) NOT NULL CHECK(len([Name]) > 2),
 Surname VARCHAR(25) NOT NULL CHECK(len([Surname]) > 3),
@@ -24,7 +25,19 @@ Id INT PRIMARY KEY IDENTITY
 )
 
 
+
 CREATE TABLE Categories(
 [Name] VARCHAR(25) NOT NULL UNIQUE CHECK(len([Name]) > 2),
 Id INT PRIMARY KEY IDENTITY
 )
+
+
+
+CREATE TABLE Musics(
+[Name] VARCHAR(25) NOT NULL UNIQUE CHECK(len([Name]) > 2),
+Duration INT NOT NULL CHECK(len(Duration) > 60),
+Id INT PRIMARY KEY IDENTITY
+)
+
+
+
