@@ -35,7 +35,7 @@ Id INT PRIMARY KEY IDENTITY
 
 CREATE TABLE Musics(
 [Name] VARCHAR(25) NOT NULL UNIQUE CHECK(len([Name]) > 2),
-Duration INT NOT NULL CHECK(len(Duration) > 60),
+Duration INT NOT NULL CHECK(Duration > 60),
 Id INT PRIMARY KEY IDENTITY
 )
 
@@ -48,10 +48,50 @@ PRIMARY KEY(MusicId, UserId)
 )
 
 
-
-SELECT *
+CREATE VIEW PlaylistInfo
+AS
+SELECT 
+u.Name AS UserName,
+m.Name AS MusicName
 FROM Users AS u
 JOIN Playlists AS p
 ON u.Id = p.UserId
 JOIN Musics AS m
 ON m.Id = p.MusicId
+
+
+ALTER TABLE Musics
+ADD CategoryId INT REFERENCES Categories(Id) DEFAULT 1
+
+ALTER TABLE Musics
+ADD ArtistId INT REFERENCES Artists(Id) NOT NULL DEFAULT 2
+
+
+CREATE VIEW MusicInfo
+AS
+SELECT m.[Name],
+a.[Name] AS ArtistName,
+c.[Name] AS CategoryName
+FROM Musics AS m
+JOIN Artists AS a
+ON a.Id = m.ArtistId
+JOIN Categories AS c
+ON c.Id = m.CategoryId
+
+
+SELECT 
+a.[Name] AS ArtistName,
+COUNT(a.[Name]) AS MusicCount
+FROM Musics AS m
+JOIN Artists AS a
+ON a.Id = m.ArtistId
+GROUP BY a.Name
+HAVING COUNT(m.[Name]) = 
+    (SELECT MAX(MusicCount) FROM
+        (SELECT COUNT(*) AS MusicCount
+        FROM Musics
+        GROUP BY ArtistId) AS x)
+
+
+
+
