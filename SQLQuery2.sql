@@ -38,3 +38,25 @@ INSERT INTO Musics (Name, Duration, CategoryId, ArtistId) VALUES(@name, @duratio
 
 
 EXEC usp_create_music 'name8', 235, 2, 5
+
+
+
+
+ALTER PROCEDURE usp_create_music @name VARCHAR(30), @duration INT, @category_id INT, @artist_id INT
+AS
+SET @name = dbo.capitalize(@name)
+INSERT INTO Musics (Name, Duration, CategoryId, ArtistId) VALUES(@name, @duration, @category_id, @artist_id)
+
+
+
+
+ALTER PROCEDURE usp_create_user @name VARCHAR(30), @surname VARCHAR(30), @username VARCHAR(30), @password VARCHAR(30), @gender VARCHAR(6)
+AS
+SET @name = dbo.capitalize(@name)
+SET @surname = dbo.capitalize(@surname)
+INSERT INTO Users (Name, Surname, Username, Password, Gender) VALUES(@name, @surname, @username, @password, @gender)
+
+
+EXEC usp_create_user 'name8', 'surname8', 'username8', 'password8', 'Male'
+
+
