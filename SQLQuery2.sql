@@ -60,3 +60,15 @@ INSERT INTO Users (Name, Surname, Username, Password, Gender) VALUES(@name, @sur
 EXEC usp_create_user 'name8', 'surname8', 'username8', 'password8', 'Male'
 
 
+
+
+CREATE PROCEDURE usp_create_category @name VARCHAR(30)
+AS
+SET @name = dbo.capitalize(@name)
+INSERT INTO Categories(Name) VALUES(@name)
+
+
+EXEC usp_create_category 'catg6'
+
+
+
