@@ -71,8 +71,13 @@ INSERT INTO Categories(Name) VALUES(@name)
 EXEC usp_create_category 'catg6'
 
 
-CREATE PROCEDURE usp_get_artistname_by_id
-RETURNS 
+CREATE FUNCTION getcount(@id INT)
+RETURNS INT
+BEGIN
+	RETURN (SELECT COUNT(DISTINCT ArtistId)
+								FROM vw_get_artistcounts_by_id
+								WHERE @id = ArtistId)
+END
 
 Function yazirsiz . Id qebul edir gonderilen Id-li Userin
 dinlediyi Ifacilarin sayini geriye qaytarir (Ifacilarin 
@@ -80,13 +85,15 @@ sayini mahnilarin yox)
 
 
 
-CREATE VIEW vw_get_artists_by_id
+CREATE VIEW vw_get_artistcounts_by_id
 AS
-SELECT 
-m.Name,
-u.Id AS UserId
+SELECT a.Id as ArtistId
 FROM Users AS u
 JOIN Playlists AS p
 ON p.UserId = u.Id
 JOIN Musics as m
 ON m.Id = p.MusicId
+JOIN Artists AS a
+ON a.Id = m.ArtistId
+
+SELECT dbo.getcount(1)
