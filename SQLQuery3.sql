@@ -26,4 +26,3 @@ END
 
 DELETE FROM Users WHERE Id = 7
 
-
