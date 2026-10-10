@@ -75,7 +75,7 @@ CREATE FUNCTION getcount(@id INT)
 RETURNS INT
 BEGIN
 	RETURN (SELECT COUNT(DISTINCT ArtistId)
-								FROM vw_get_artistcounts_by_id
+		FROM vw_get_artistcounts_by_id
 								WHERE @id = ArtistId)
 END
 
