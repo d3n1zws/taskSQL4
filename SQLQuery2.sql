@@ -76,7 +76,7 @@ RETURNS INT
 BEGIN
 	RETURN (SELECT COUNT(DISTINCT ArtistId)
 		FROM vw_get_artistcounts_by_id
-								WHERE @id = ArtistId)
+		WHERE @id = ArtistId)
 END
 
 Function yazirsiz . Id qebul edir gonderilen Id-li Userin
